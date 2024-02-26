@@ -8,3 +8,5 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=admin #기본사용자 이름
       - RABBITMQ_DEFAULT_PASS=admin123!@# #기본사용자 비밀번호
+    volumes:
+      - "./data:/var/lib/rabbitmq/mnesia/"
