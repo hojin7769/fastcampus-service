@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @SuperBuilder
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "user")
+@Table(name = "storeuser")
 @Entity
 public class UserEntity extends BaseEntity {
 

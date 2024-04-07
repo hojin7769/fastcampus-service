@@ -30,7 +30,7 @@ public class SseApiController {
             @Parameter(hidden = true)
             @AuthenticationPrincipal UserSession userSession
     ){
-        log.info("login user {}", userSession);
+        log.info("login storeuser {}", userSession);
 
         var userSseConnection = UserSseConnection.connect(
                 userSession.getStoreId().toString(),
