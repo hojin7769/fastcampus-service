@@ -24,11 +24,11 @@ public class StoreUserBusiness {
     ){
         var storeEntity = storeRepository.findFirstByNameAndStatusOrderByIdDesc(request.getStoreName(), StoreStatus.REGISTERED);
 
-        var entity = storeUserConverter.toEntity(request, storeEntity.get());
+        var entity = storeUserConverter.toEntity(request, storeEntity);
 
         var newEntity = storeUserService.register(entity);
 
-        var response = storeUserConverter.toResponse(newEntity, storeEntity.get());
+        var response = storeUserConverter.toResponse(newEntity, storeEntity);
 
         return response;
     }
