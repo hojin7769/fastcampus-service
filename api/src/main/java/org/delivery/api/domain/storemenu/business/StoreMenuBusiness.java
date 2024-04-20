@@ -30,7 +30,7 @@ public class StoreMenuBusiness {
 
     public List<StoreMenuResponse> search(Long storeId){
         var storeMenus = storeMenuService.getStoreMenuByStoreId(storeId);
-        
+
 
         return storeMenus.stream()
                 .map(storeMenuConverter::toResponse)

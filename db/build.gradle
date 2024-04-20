@@ -29,6 +29,9 @@ dependencies {
     runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
 
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+
+
 }
 
 
