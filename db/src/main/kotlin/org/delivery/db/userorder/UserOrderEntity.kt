@@ -42,7 +42,7 @@ class UserOrderEntity (
 
     @field:OneToMany(mappedBy = "userOrder")
     @field:JsonIgnore
-    var userOrderMenuEntityList: MutableList<UserOrderMenuEntity>?=null
+    var userOrderMenuList: MutableList<UserOrderMenuEntity>?=null
 
 ){
    override fun toString(): String {

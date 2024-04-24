@@ -16,6 +16,9 @@ import org.delivery.api.domain.userorder.service.UserOrderService
 import org.delivery.api.domain.userordermenu.converter.UserOrderMenuConverter
 import org.delivery.api.domain.userordermenu.service.UserOrderMenuService
 import org.delivery.common.annotation.Business
+import org.delivery.db.userorder.UserOrderEntity
+import org.delivery.db.userordermenu.enums.UserOrderMenuStatus
+import kotlin.streams.toList
 
 @Business
 class UserOrderBusiness(
@@ -40,16 +43,16 @@ class UserOrderBusiness(
      * @return 주문 응답
      */
     fun userOrder(
-        user:User?,
+        user: User?,
         body: UserOrderRequest?
-    ):UserOrderResponse{
+    ): UserOrderResponse {
 
         // 가게찾기
         val storeEntity = storeService.getStoreWithThrow(body?.storeId)
 
         // 주문한 메뉴 찾기
         val storeMenuEntityList = body?.storeMenuIdList
-            ?.mapNotNull { storeMenuService.getStoreMenuWithThrow(it)}
+            ?.mapNotNull { storeMenuService.getStoreMenuWithThrow(it) }
             ?.toList()
 
 
@@ -68,7 +71,7 @@ class UserOrderBusiness(
             ?.toList()
 
         //주문내역 기록 남기기
-        userOrderMenuEntityList?.forEach{ userOrderMenuService.order(it) }
+        userOrderMenuEntityList?.forEach { userOrderMenuService.order(it) }
 
         //비동기로 주문내역 전달
         userOrderProducer.sendOrder(userOrderEntity)
@@ -81,16 +84,69 @@ class UserOrderBusiness(
         user: User?
     ): List<UserOrderDetailResponse>? {
 
-        val userOrderEntityList = userOrderService.current(user?.id)
+        return userOrderService.current(user?.id)
+            ?.map {
 
-        val userOrderDetailResponseList = userOrderEntityList
-            ?.map{
+                val storeMenuEntityList = it.userOrderMenuList?.stream()
+                    ?.filter { it.status == UserOrderMenuStatus.REGISTERED }
+                    ?.map {
+                        it.storeMenu
+                    }?.toList()
 
+                UserOrderDetailResponse(
+                    userOrderResponse = userOrderConverter.toResponse(it),
+                    storeResponse = storeConverter.toResponse(it.store),
+                    storeMenuResponseList = storeMenuConverter.toResponse(storeMenuEntityList)
+                )
             }
 
+    }
 
-        return null
 
+    fun history(
+        user: User?
+    ): List<UserOrderDetailResponse>? {
+
+        return userOrderService.history(user?.id)
+            ?.map { userOrderEntity ->
+                val storeMenuEntityList = userOrderEntity.userOrderMenuList
+                    ?.stream()
+                    ?.filter {
+                        it.status == UserOrderMenuStatus.REGISTERED
+                    }
+                    ?.map {
+                        it.storeMenu
+                    }
+                    ?.toList()
+
+                UserOrderDetailResponse(
+                    userOrderResponse = userOrderConverter.toResponse(userOrderEntity),
+                    storeResponse = storeConverter.toResponse(userOrderEntity.store),
+                    storeMenuResponseList = storeMenuConverter.toResponse(storeMenuEntityList)
+                )
+            }?.toList()
+    }
+
+
+    fun read(
+        user: User?,
+        orderId: Long?
+    ): UserOrderDetailResponse? {
+        return userOrderService.getUserOrderWithOutStatusWithThrow(orderId, user?.id)
+            ?.let { userOrderEntity ->
+                val storeMenuEntityList = userOrderEntity.userOrderMenuList
+                    ?.stream()
+                    ?.filter { it.status == UserOrderMenuStatus.REGISTERED }
+                    ?.map { it.storeMenu }
+                    ?.toList()
+                    ?: listOf()
+
+                UserOrderDetailResponse(
+                    userOrderResponse = userOrderConverter.toResponse(userOrderEntity),
+                    storeResponse = storeConverter.toResponse(userOrderEntity.store),
+                    storeMenuResponseList = storeMenuConverter.toResponse(storeMenuEntityList)
+                )
+            }
     }
 
 }

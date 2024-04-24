@@ -1,3 +1,4 @@
+/*
 package org.delivery.api.domain.userorder.controller.model;
 
 import lombok.*;
@@ -40,4 +41,7 @@ public class UserOrderDetailResponse {
     public void setStoreMenuResponseList(List<StoreMenuResponse> storeMenuResponseList) {
         this.storeMenuResponseList = storeMenuResponseList;
     }
+
+
 }
+*/
