@@ -1,3 +1,4 @@
+/*
 package org.delivery.db.store.enums;
 
 import lombok.AllArgsConstructor;
@@ -10,3 +11,4 @@ public enum StoreStatus {
     UNREGISTERED("해지");
     private String description;
 }
+*/

@@ -1,14 +1,9 @@
-/*
-package org.delivery.db.store.enums;
+package org.delivery.db.store.enums
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
-public enum StoreCategory {
-
+enum class StoreCategory(
+    val display:String,
+    val description:String
+) {
     //중식
     CHINESE_FOOD("중식", "중식"),
     //양식
@@ -25,10 +20,4 @@ public enum StoreCategory {
     HAMBURGER("햄버거", "햄버거"),
     //커피
     COFFEE_TEA("커피", "커피")
-    ;
-
-    private String display;
-    private String description;
-
 }
-*/

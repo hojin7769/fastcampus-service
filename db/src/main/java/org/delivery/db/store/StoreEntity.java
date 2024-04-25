@@ -1,3 +1,4 @@
+/*
 package org.delivery.db.store;
 
 import lombok.AllArgsConstructor;
@@ -43,3 +44,4 @@ public class StoreEntity extends BaseEntity {
 }
 
 
+*/

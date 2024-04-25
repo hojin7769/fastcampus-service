@@ -27,7 +27,7 @@ public class StoreService {
     public StoreEntity register(StoreEntity storeEntity){
         return Optional.ofNullable(storeEntity)
                 .map(it -> {
-                    it.setStar(0);
+                    it.setStar(0.0);
                     it.setStatus(StoreStatus.REGISTERED);
                     //TODO: 등록일시 추가
 
