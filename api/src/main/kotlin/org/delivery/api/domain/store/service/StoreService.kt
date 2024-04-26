@@ -4,6 +4,7 @@ import org.delivery.common.error.ErrorCode
 import org.delivery.common.exception.ApiException
 import org.delivery.db.store.StoreEntity
 import org.delivery.db.store.StoreRepository
+import org.delivery.db.store.enums.StoreCategory
 import org.delivery.db.store.enums.StoreStatus
 import org.springframework.stereotype.Service
 
@@ -23,8 +24,10 @@ class StoreService (
     fun getStoreWithThrow(
             id:Long?,
     ): StoreEntity {
-        val entity = storeRepository.findFirstByIdAndStatusOrderByIdDesc(id,StoreStatus.REGISTERED)
-        return entity ?: throw ApiException(ErrorCode.NULL_POINT)
+      storeRepository.findFirstByIdAndStatusOrderByIdDesc(id,StoreStatus.REGISTERED)
+                .let{
+                    return it ?: throw ApiException(ErrorCode.NULL_POINT)
+                }
     }
 
 
@@ -38,5 +41,15 @@ class StoreService (
         }
 
         return newStoreEntity
+    }
+
+    fun searchByCategory(
+            category: StoreCategory?
+    ):List<StoreEntity>{
+        storeRepository.findAllByStatusAndCategoryOrderByStarDesc(
+                StoreStatus.REGISTERED,category
+        ).let{
+            return it
+        }
     }
 }
