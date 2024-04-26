@@ -1,3 +1,4 @@
+/*
 package org.delivery.api.domain.store.controller.model;
 
 import lombok.AllArgsConstructor;
@@ -29,3 +30,4 @@ public class StoreRegisterRequest {
     @NotBlank
     private String phoneNumber;
 }
+*/

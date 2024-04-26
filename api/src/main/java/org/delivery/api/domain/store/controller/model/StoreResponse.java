@@ -1,3 +1,4 @@
+/*
 package org.delivery.api.domain.store.controller.model;
 
 import lombok.AllArgsConstructor;
@@ -35,3 +36,4 @@ public class StoreResponse {
 
     private String phoneNumber;
 }
+*/

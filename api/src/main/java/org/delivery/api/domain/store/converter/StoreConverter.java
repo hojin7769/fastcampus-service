@@ -1,3 +1,4 @@
+/*
 package org.delivery.api.domain.store.converter;
 
 import lombok.RequiredArgsConstructor;
@@ -54,3 +55,4 @@ public class StoreConverter {
                 .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT));
     }
 }
+*/
