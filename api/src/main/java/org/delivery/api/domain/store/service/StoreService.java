@@ -1,3 +1,4 @@
+/*
 package org.delivery.api.domain.store.service;
 
 import lombok.RequiredArgsConstructor;
@@ -54,3 +55,4 @@ public class StoreService {
         return list;
     }
 }
+*/

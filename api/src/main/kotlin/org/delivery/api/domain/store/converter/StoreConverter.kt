@@ -10,7 +10,7 @@ class StoreConverter {
 
     fun toEntity(
         request : StoreRegisterRequest?
-    ):StoreEntity{
+    ):StoreEntity?{
         return StoreEntity(
             name = request?.name,
             address = request?.address,

@@ -1,3 +1,4 @@
+/*
 package org.delivery.api.domain.userordermenu.service;
 
 import lombok.RequiredArgsConstructor;
@@ -32,3 +33,4 @@ public class UserOrderMenuService {
                 .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT));
     }
 }
+*/

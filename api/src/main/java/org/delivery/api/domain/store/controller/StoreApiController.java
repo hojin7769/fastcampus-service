@@ -1,3 +1,4 @@
+/*
 package org.delivery.api.domain.store.controller;
 
 import lombok.RequiredArgsConstructor;
@@ -27,3 +28,4 @@ public class StoreApiController {
         return Api.OK(response);
     }
 }
+*/

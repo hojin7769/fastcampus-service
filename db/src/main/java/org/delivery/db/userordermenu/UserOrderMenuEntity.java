@@ -1,3 +1,4 @@
+/*
 package org.delivery.db.userordermenu;
 
 import lombok.AllArgsConstructor;
@@ -36,3 +37,4 @@ public class UserOrderMenuEntity extends BaseEntity {
 
 
 }
+*/

@@ -52,4 +52,9 @@ class StoreService (
             return it
         }
     }
+
+
+    fun registerStore():List<StoreEntity>{
+        return storeRepository.findAllByStatusOrderByIdDesc(StoreStatus.REGISTERED)
+    }
 }

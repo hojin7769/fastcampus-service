@@ -16,7 +16,6 @@ import org.delivery.api.domain.userorder.service.UserOrderService
 import org.delivery.api.domain.userordermenu.converter.UserOrderMenuConverter
 import org.delivery.api.domain.userordermenu.service.UserOrderMenuService
 import org.delivery.common.annotation.Business
-import org.delivery.db.userorder.UserOrderEntity
 import org.delivery.db.userordermenu.enums.UserOrderMenuStatus
 import kotlin.streams.toList
 
