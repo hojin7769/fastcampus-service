@@ -1,3 +1,4 @@
+/*
 package org.delivery.api.domain.storemenu.business;
 
 import lombok.RequiredArgsConstructor;
@@ -37,3 +38,4 @@ public class StoreMenuBusiness {
                 .collect(Collectors.toList());
     }
 }
+*/
