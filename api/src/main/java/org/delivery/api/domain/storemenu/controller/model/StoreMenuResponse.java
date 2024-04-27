@@ -1,3 +1,4 @@
+/*
 package org.delivery.api.domain.storemenu.controller.model;
 
 import lombok.AllArgsConstructor;
@@ -30,3 +31,4 @@ public class StoreMenuResponse {
 
     private int sequence;
 }
+*/

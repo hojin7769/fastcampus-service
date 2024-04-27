@@ -1,3 +1,4 @@
+/*
 package org.delivery.api.domain.storemenu.converter;
 
 import org.delivery.common.annotation.Converter;
@@ -54,3 +55,4 @@ public class StoreMenuConverter {
                 .collect(Collectors.toList());
     }
 }
+*/
