@@ -19,7 +19,8 @@ class UserOrderConverter {
         val totalAmount = storeMenuEntityList?.map {
             it -> it.amount
         }?.reduce{
-            acc,bigDecimal -> acc.add(bigDecimal)
+            acc,bigDecimal ->
+            acc?.add(bigDecimal)
         }
 
         return UserOrderEntity(

@@ -23,14 +23,14 @@ class StoreMenuConverter {
                 amount = it.amount,
                 thumbnailUrl = it.thumbnailUrl,
             )
-        }?: throw ApiException(ErrorCode.NULL_POINT)
+        } ?: throw ApiException(ErrorCode.NULL_POINT)
     }
 
     fun toResponse(
         entity: StoreMenuEntity?
-    ): StoreMenuResponse{
+    ): StoreMenuResponse {
 
-        entity?.let{
+        entity?.let {
             return StoreMenuResponse(
                 id = it.id,
                 storeId = it.store?.id,
@@ -46,10 +46,11 @@ class StoreMenuConverter {
 
 
     fun toResponse(
-        list:List<StoreMenuEntity>
-    ):List<StoreMenuResponse>{
+        list: List<StoreMenuEntity?>
+    ): List<StoreMenuResponse> {
         return list.map {
             toResponse(it)
         }.toList()
     }
+
 }

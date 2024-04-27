@@ -1,3 +1,4 @@
+/*
 package org.delivery.api.domain.storemenu.controller.model;
 
 import lombok.AllArgsConstructor;
@@ -26,3 +27,4 @@ public class StoreMenuRegisterRequest {
     private String thumbnailUrl;
 
 }
+*/
