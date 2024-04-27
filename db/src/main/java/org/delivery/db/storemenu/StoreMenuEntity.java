@@ -1,3 +1,4 @@
+/*
 package org.delivery.db.storemenu;
 
 import lombok.AllArgsConstructor;
@@ -42,3 +43,4 @@ public class StoreMenuEntity extends BaseEntity {
 
     private int sequence;
 }
+*/
