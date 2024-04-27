@@ -1,3 +1,4 @@
+/*
 package org.delivery.api.domain.userorder.service;
 
 import lombok.RequiredArgsConstructor;
@@ -124,3 +125,4 @@ public class UserOrderService {
                 .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT));
     }
 }
+*/

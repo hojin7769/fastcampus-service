@@ -84,7 +84,7 @@ class UserOrderBusiness(
     ): List<UserOrderDetailResponse>? {
 
         return userOrderService.current(user?.id)
-            ?.map {
+            .map {
 
                 val storeMenuEntityList = it.userOrderMenuList?.stream()
                     ?.filter { it.status == UserOrderMenuStatus.REGISTERED }
@@ -107,7 +107,7 @@ class UserOrderBusiness(
     ): List<UserOrderDetailResponse>? {
 
         return userOrderService.history(user?.id)
-            ?.map { userOrderEntity ->
+            .map { userOrderEntity ->
                 val storeMenuEntityList = userOrderEntity.userOrderMenuList
                     ?.stream()
                     ?.filter {
@@ -123,7 +123,7 @@ class UserOrderBusiness(
                     storeResponse = storeConverter.toResponse(userOrderEntity.store),
                     storeMenuResponseList = storeMenuConverter.toResponse(storeMenuEntityList)
                 )
-            }?.toList()
+            }.toList()
     }
 
 
@@ -132,7 +132,7 @@ class UserOrderBusiness(
         orderId: Long?
     ): UserOrderDetailResponse? {
         return userOrderService.getUserOrderWithOutStatusWithThrow(orderId, user?.id)
-            ?.let { userOrderEntity ->
+            .let { userOrderEntity ->
                 val storeMenuEntityList = userOrderEntity.userOrderMenuList
                     ?.stream()
                     ?.filter { it.status == UserOrderMenuStatus.REGISTERED }

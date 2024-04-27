@@ -6,6 +6,7 @@ import org.delivery.db.userorder.UserOrderEntity
 import org.delivery.db.userorder.UserOrderRepository
 import org.delivery.db.userorder.enums.UserOrderStatus
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
 
 @Service
 class UserOrderService(
@@ -81,6 +82,62 @@ class UserOrderService(
                 UserOrderStatus.RECEIVE
             )
         )
+    }
+
+    fun order(
+        userOrderEntity:UserOrderEntity?
+    ):UserOrderEntity{
+        userOrderEntity?.let {
+            it.orderedAt = LocalDateTime.now()
+            it.status =UserOrderStatus.ORDER
+            return userOrderRepository.save(it)
+        }?:throw ApiException(ErrorCode.NULL_POINT)
+    }
+
+    fun setStatus(
+        userOrderEntity: UserOrderEntity,
+        status: UserOrderStatus
+    ):UserOrderEntity{
+        userOrderEntity.status = status
+        return userOrderRepository.save(userOrderEntity)
+    }
+
+
+    fun accept(
+        userOrderEntity:UserOrderEntity?
+    ):UserOrderEntity{
+        userOrderEntity?.let{
+            it.acceptedAt = LocalDateTime.now()
+            return setStatus(it, UserOrderStatus.ACCEPT)
+        }?:throw ApiException(ErrorCode.NULL_POINT)
+    }
+
+    fun cooking(
+        userOrderEntity:UserOrderEntity?
+    ):UserOrderEntity{
+        userOrderEntity?.let{
+            it.cookingStartedAt = LocalDateTime.now()
+            return setStatus(it, UserOrderStatus.COOKING)
+        }?:throw ApiException(ErrorCode.NULL_POINT)
+    }
+
+
+
+    fun delivery(
+        userOrderEntity:UserOrderEntity?
+    ):UserOrderEntity{
+        userOrderEntity?.let{
+            it.deliveryStartedAt = LocalDateTime.now()
+            return setStatus(it, UserOrderStatus.DELIVERY)
+        }?:throw ApiException(ErrorCode.NULL_POINT)
+    }
+
+
+    fun receive(userOrderEntity: UserOrderEntity?): UserOrderEntity {
+        userOrderEntity?.let{
+            it.receivedAt = LocalDateTime.now()
+            return setStatus(it, UserOrderStatus.RECEIVE)
+        }?:throw ApiException(ErrorCode.NULL_POINT)
     }
 
 
