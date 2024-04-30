@@ -11,4 +11,4 @@ spring:
             - Path=/service-api/open-api/** # 요청 패턴
           filters:
             - RewritePath= /service-api(?<segment>/?.*), $\{segment}
-            - ServiceApiFilter
+            - ServiceApiPublicFilter
