@@ -34,7 +34,7 @@ class TokenService(
         }?.let { map ->
             map["userId"]
         }?.let { userId ->
-            userId as Long
+            userId.toString().toLong()
         }
     }
 }

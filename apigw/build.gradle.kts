@@ -23,6 +23,7 @@ extra["springCloudVersion"] = "2021.0.8"
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.cloud:spring-cloud-starter-gateway")
+    implementation(project(":common"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 dependencyManagement {

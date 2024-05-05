@@ -1,5 +1,6 @@
 package org.delivery.account.domain.token.controller
 
+import org.delivery.account.common.Log
 import org.delivery.account.domain.token.business.TokenBusiness
 import org.delivery.account.domain.token.controller.model.TokenValidationRequest
 import org.delivery.account.domain.token.controller.model.TokenValidationResponse
@@ -16,11 +17,14 @@ class TokenInternalApiController(
     private val tokenBusiness: TokenBusiness
 ) {
 
+    companion object: Log
+
     @PostMapping("/validation")
     fun tokenValidation(
         @RequestBody
         tokenValidationRequest: TokenValidationRequest?
     ):Api<TokenValidationResponse>{
+        log.info("token validation init : {}",tokenValidationRequest)
         return Api.OK(
             tokenBusiness.tokenValidation(tokenValidationRequest)
         )
