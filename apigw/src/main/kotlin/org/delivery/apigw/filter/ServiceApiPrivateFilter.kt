@@ -31,7 +31,6 @@ class ServiceApiPrivateFilter : AbstractGatewayFilterFactory<ServiceApiPrivateFi
 
             val uri = exchange.request.uri
             log.info("service api private filter route uri : {} ", uri)
-            //TODO: account server를 통한 인증 실행
             //1. 토큰의 유무
             val headers = exchange.request.headers["authorization-token"] ?: listOf()
 
