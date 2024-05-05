@@ -35,8 +35,8 @@ public class UserSessionResolver implements HandlerMethodArgumentResolver {
 
         //request 에서 userId 가져오기
         var requestContext = RequestContextHolder.getRequestAttributes();
-        var userId = (Long) requestContext.getAttribute("userId", RequestAttributes.SCOPE_REQUEST);
-        var userEntity = userService.getUserWithThrow(userId);
+        var userId = requestContext.getAttribute("userId", RequestAttributes.SCOPE_REQUEST);
+        var userEntity = userService.getUserWithThrow(Long.parseLong(userId.toString()));
         //사용자 정보 세팅
         var user = User.builder()
                 .id(userEntity.getId())

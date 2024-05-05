@@ -44,37 +44,52 @@ class ServiceApiPrivateFilter : AbstractGatewayFilterFactory<ServiceApiPrivateFi
             val accountApiurl = UriComponentsBuilder
                 .fromUriString("http://localhost")
                 .port(8082)
+                .path("/internal-api/token/validation")
                 .build()
                 .encode()
                 .toUriString()
             val webclient = WebClient.builder().baseUrl(accountApiurl).build()
-            val requset = TokenValidationRequest(
+            val request = TokenValidationRequest(
                 tokenDto = TokenDto(token = token)
             )
-            webclient.post()
-                .body(Mono.just(requset), object : ParameterizedTypeReference<TokenValidationResponse>() {})
+            webclient
+                .post()
+                .body(Mono.just(request), object : ParameterizedTypeReference<TokenValidationRequest>(){})
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .onStatus({ status: HttpStatus ->
-                    status.isError
-                },
-                    { response: ClientResponse ->
-                        response.bodyToMono(object : ParameterizedTypeReference<Any>() {})
-                            .flatMap { error ->
-                                log.error("",error)
-                                Mono.error(ApiException(TokenErrorCode.TOKEN_EXCEPTION))
-                             }
+                .onStatus(
+                    {
+                            status: HttpStatus -> status.isError
+                    },
+                    {
+                            response: ClientResponse -> response.bodyToMono( object: ParameterizedTypeReference<Any>(){})
+                        .flatMap { error ->
+                            log.error("", error)
+                            Mono.error(ApiException(TokenErrorCode.TOKEN_EXCEPTION))
+                        }
                     }
                 )
-                .bodyToMono(object : ParameterizedTypeReference<TokenValidationResponse>() {})
+                .bodyToMono(object: ParameterizedTypeReference<TokenValidationResponse>(){})
                 .flatMap { response ->
                     log.info("token validation response : {}", response)
-                    val mono = chain.filter(exchange)
+
+
+                    // 3. 사용자 정보 추가
+                    val userId = response.userId?.toString()
+
+                    val proxyRequest = exchange.request.mutate()
+                        .header("x-user-id", userId)
+                        .build()
+
+                    val requestBuild = exchange.mutate().request(proxyRequest).build()
+
+                    val mono = chain.filter(requestBuild)
                     mono
                 }
-
-            //3. 사용자 정보 추가
-
+                .onErrorMap { e ->
+                    log.error("",e)
+                    e
+                }
         }
 
     }

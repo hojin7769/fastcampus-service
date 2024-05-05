@@ -23,11 +23,10 @@ class TokenInternalApiController(
     fun tokenValidation(
         @RequestBody
         tokenValidationRequest: TokenValidationRequest?
-    ):Api<TokenValidationResponse>{
+    ):TokenValidationResponse?{
         log.info("token validation init : {}",tokenValidationRequest)
-        return Api.OK(
-            tokenBusiness.tokenValidation(tokenValidationRequest)
-        )
+        return tokenBusiness.tokenValidation(tokenValidationRequest)
+
     }
 
 }
