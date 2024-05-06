@@ -1,3 +1,4 @@
+/*
 package org.delivery.api.domain.storemenu.service;
 
 import lombok.RequiredArgsConstructor;
@@ -36,3 +37,4 @@ public class StoreMenuService {
                 .orElseThrow(() -> new ApiException(ErrorCode.NULL_POINT));
     }
 }
+*/

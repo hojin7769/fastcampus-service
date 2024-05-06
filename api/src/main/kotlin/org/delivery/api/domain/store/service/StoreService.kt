@@ -23,7 +23,7 @@ class StoreService (
 
     fun getStoreWithThrow(
             id:Long?,
-    ): StoreEntity {
+    ): StoreEntity? {
       storeRepository.findFirstByIdAndStatusOrderByIdDesc(id,StoreStatus.REGISTERED)
                 .let{
                     return it ?: throw ApiException(ErrorCode.NULL_POINT)
@@ -33,7 +33,7 @@ class StoreService (
 
     fun register(
             storeEntity: StoreEntity?
-    ):StoreEntity{
+    ):StoreEntity?{
         val newStoreEntity = storeEntity.let{
             it?.star = 0.0
             it?.status = StoreStatus.REGISTERED

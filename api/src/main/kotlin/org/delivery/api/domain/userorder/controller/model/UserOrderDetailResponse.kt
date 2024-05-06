@@ -6,5 +6,5 @@ import org.delivery.api.domain.storemenu.controller.model.StoreMenuResponse
 data class UserOrderDetailResponse (
     var userOrderResponse: UserOrderResponse? = null,
     var storeResponse: StoreResponse? = null,
-    var storeMenuResponseList: List<StoreMenuResponse>? = null,
+    var storeMenuResponseList: List<StoreMenuResponse>,
 )

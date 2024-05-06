@@ -28,29 +28,24 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("Authorization Interceptor url : {}", request.getRequestURI());
 
-
-        //WEB , chrome 의 경우 GET ,POST OPTION = pass
+        // WEB ,chrome 의 경우 GET, POST OPTIONS = pass
         if(HttpMethod.OPTIONS.matches(request.getMethod())){
             return true;
         }
 
-
-        // js, html, png, resource 를 요청하는 경우 = pass
+        // js. html. png resource 를 요청하는 경우 = pass
         if(handler instanceof ResourceHttpRequestHandler){
             return true;
         }
 
-        // TODO header 검증
-        var accessToken = request.getHeader("authorization-token");
-        if(accessToken == null){
-            throw new ApiException(TokenErrorCode.AUTHORIZATION_TOKEN_NOT_FOUND);
+        var userId = request.getHeader("x-user-id");
+        if(userId == null){
+            throw new ApiException(ErrorCode.BAD_REQUEST, "x-user=-id header 없음");
         }
-        var userId = tokenBusiness.validationToken(accessToken);
-        if(userId != null){
-            var requestContext = Objects.requireNonNull(RequestContextHolder.getRequestAttributes());
-            requestContext.setAttribute("userId", userId, RequestAttributes.SCOPE_REQUEST);
-            return true; //일단 통과 처리
-        }
-        throw new ApiException(ErrorCode.BAD_REQUEST, "인증실패");
+
+        var requestContext = Objects.requireNonNull(RequestContextHolder.getRequestAttributes());
+        requestContext.setAttribute("userId", userId, RequestAttributes.SCOPE_REQUEST);
+
+        return true;
     }
 }

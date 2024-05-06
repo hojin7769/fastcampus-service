@@ -95,7 +95,7 @@ class UserOrderBusiness(
                 UserOrderDetailResponse(
                     userOrderResponse = userOrderConverter.toResponse(it),
                     storeResponse = storeConverter.toResponse(it.store),
-                    storeMenuResponseList = storeMenuConverter.toResponse(storeMenuEntityList)
+                    storeMenuResponseList = storeMenuConverter.toResponse(storeMenuEntityList!!)
                 )
             }
 
@@ -121,7 +121,7 @@ class UserOrderBusiness(
                 UserOrderDetailResponse(
                     userOrderResponse = userOrderConverter.toResponse(userOrderEntity),
                     storeResponse = storeConverter.toResponse(userOrderEntity.store),
-                    storeMenuResponseList = storeMenuConverter.toResponse(storeMenuEntityList)
+                    storeMenuResponseList = storeMenuConverter.toResponse(storeMenuEntityList!!)
                 )
             }.toList()
     }
