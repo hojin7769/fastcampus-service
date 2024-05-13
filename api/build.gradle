@@ -9,9 +9,9 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.jpa'
 }
 
-group = 'org.delivery'
-version = '1.0-SNAPSHOT'
-sourceCompatibility = '11'
+group 'org.delivery'
+version '1.0-SNAPSHOT'
+sourceCompatibility = "11"
 
 configurations {
     compileOnly {
@@ -23,27 +23,48 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    set('springBootAdminVersion', "2.7.4")
+}
+
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // spring boot admin
+    implementation 'de.codecentric:spring-boot-admin-starter-client'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
+
     implementation 'org.springframework.boot:spring-boot-starter-web'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    // logstash
+    implementation group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '7.3'
+
     implementation project(':db')
     implementation project(':common')
 
-    // https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui
+    // jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.7.0'
 
+    // jwt
     implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 
-
-    //kotlin
+    // kotlin
     implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
     implementation 'org.jetbrains.kotlin:kotlin-reflect'
+
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("de.codecentric:spring-boot-admin-dependencies:${property("springBootAdminVersion")}")
+    }
 }
 
 test {
@@ -57,12 +78,12 @@ tasks.withType(KotlinCompile) {
     }
 }
 
-
-
-bootJar{
+bootJar {
     enabled = true
 }
 
 jar {
     enabled = false
 }
+
+targetCompatibility = JavaVersion.VERSION_11

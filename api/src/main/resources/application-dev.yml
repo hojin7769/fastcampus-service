@@ -16,7 +16,6 @@ spring:
       client:
         url:
           - http://localhost:8805 # server address
-
   rabbitmq:
     host: localhost
     port: 5672
@@ -43,7 +42,6 @@ token:
     plus-hour: 1
   refresh-token:
     plus-hour: 12
-
 
 logging:
   config: classpath:logback-dev.xml
